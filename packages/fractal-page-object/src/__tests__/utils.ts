@@ -32,6 +32,20 @@ describe('utils', () => {
       }).toThrow(/Tried selector `div`/);
     });
 
+    test('element missing', () => {
+      document.body.innerHTML = '<div><button type="button">Click</button></div>';
+
+      class Page extends PageObject {
+        button = selector<HTMLButtonElement>('button');
+      }
+
+      let page = new Page('div');
+
+      expect(() => {
+        assertExists('test', page.button);
+      }).toThrow(/Tried selector `div`/);
+    });
+
     test('selector shown is deep', () => {
       document.body.innerHTML = '';
 
